@@ -111,6 +111,18 @@ section.vue{display:none}section.vue.on{display:block}
 .carte li{padding:5px 0;border-bottom:1px dashed #2a2a2f}
 .carte li::before{content:"▸ ";color:var(--rouge)}
 .carte .btn{text-align:center;font-size:16px}
+.bienvenue{display:grid;grid-template-columns:1.4fr 1fr;gap:36px;align-items:center}
+.lecteur{position:relative;aspect-ratio:16/9;background:radial-gradient(circle at 30% 30%,rgba(255,168,38,.35),transparent 60%),linear-gradient(160deg,#1b0f05,#070505);border:1.5px solid #2c2c31;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.lecteur video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000}
+.lecteur .play{width:76px;height:76px;border-radius:50%;background:var(--jaune);color:var(--noir);display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 0 0 10px rgba(255,210,31,.18)}
+.lecteur .bientot{position:absolute;bottom:14px;left:14px;font-size:12px;font-weight:800;background:rgba(0,0,0,.6);padding:5px 10px;border-radius:4px;letter-spacing:.04em;text-transform:uppercase}
+.preuve{display:none;align-items:center;gap:10px;margin:22px auto 0;padding:9px 16px;border-radius:999px;background:rgba(0,0,0,.45);border:1px solid rgba(255,210,31,.5);font-weight:700;font-size:14px;position:relative;width:fit-content}
+.preuve.on{display:flex}.preuve i{width:9px;height:9px;border-radius:50%;background:#3ddc6b;box-shadow:0 0 0 4px rgba(61,220,107,.2)}
+.formats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:6px}
+.formats label{border:2px solid #2d2d33;padding:16px;cursor:pointer;font-weight:700;display:flex;flex-direction:column;gap:3px;transition:.15s}
+.formats label small{color:var(--gris);font-weight:600;font-size:13px}
+.formats input{display:none}.formats label:has(input:checked){border-color:var(--jaune);background:rgba(255,210,31,.06)}
+@media(max-width:720px){.bienvenue,.formats{grid-template-columns:1fr}}
 .acompte-note{margin-top:22px;color:var(--gris);font-size:14px}
 /* Réservation */
 .form{display:grid;gap:26px;max-width:760px}
@@ -196,7 +208,7 @@ footer .logo{display:block;margin-bottom:8px}
           <a href="#formations">Maîtriser l'IA</a>
           <a href="#formations">Filmer avec ton iPhone</a>
           <a href="#formations">Pack modules vidéo</a>
-          <a href="#acheter">Pack · bientôt disponible</a>
+          <a href="#formations">Formation en présentiel</a>
         </div>
       </div>
       <a href="#luts" data-v="luts">LUTS</a>
@@ -219,16 +231,27 @@ footer .logo{display:block;margin-bottom:8px}
     <div class="soleil"></div>
     <h1 class="titre">HopeLab</h1>
     <div><span class="bandeau">Apprends avec Hope</span></div>
-    <div class="pills"><span class="pill j">Modules vidéo</span><span class="pill">100 % en ligne</span><span class="pill">À ton rythme</span></div>
-    <p>Formations en <b>IA</b>, <b>montage</b> et <b>cadrage</b> par un vidéaste suivi par près de 30 000 personnes. En modules vidéo, accessibles tout de suite, à ton rythme.</p>
+    <div class="pills"><span class="pill j">En ligne</span><span class="pill">En présentiel</span><span class="pill">À ton rythme</span></div>
+    <p>Formations en <b>IA</b>, <b>montage</b> et <b>cadrage</b> par un vidéaste suivi par près de 30 000 personnes. En modules vidéo à ton rythme, ou en présentiel avec Hope.</p>
     <div class="cta">
       <a href="#acheter" class="btn">Bientôt disponible</a>
-      <a href="#formations" class="btn ghost">Voir les modules</a>
+      <a href="#formations" class="btn ghost">Voir les formules</a>
     </div>
+    <div class="preuve" data-preuve><i></i><span></span></div>
     <div class="stats">
-      <div class="stat"><b>29,7K</b><small>abonnés TikTok</small></div>
-      <div class="stat"><b>619K</b><small>j'aime</small></div>
-      <div class="stat"><b>1,5M</b><small>vues sur une vidéo</small></div>
+      <div class="stat"><b data-stat="abonnes">29,7K</b><small>abonnés TikTok</small></div>
+      <div class="stat"><b data-stat="jaime">619K</b><small>j'aime sur le compte</small></div>
+      <div class="stat"><b data-stat="vues">+1,5M</b><small>vues cumulées</small></div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="bienvenue">
+      <div class="lecteur" id="lecteurBienvenue"><div class="play">▶</div><span class="bientot">Vidéo de bienvenue · bientôt</span></div>
+      <div>
+        <h2 class="titre sec-t">Bienvenue chez HopeLab</h2>
+        <div style="margin:6px 0 18px"><span class="bandeau" style="font-size:22px">Le mot de Hope</span></div>
+        <p class="sous" style="margin-bottom:0">Hope se présente, raconte son parcours, sa vision, et ce qu'il veut te transmettre à travers la formation.</p>
+      </div>
     </div>
   </div>
   <div class="wrap">
@@ -239,7 +262,7 @@ footer .logo{display:block;margin-bottom:8px}
       <div class="theme"><span class="num">02</span><h3>Montage</h3><p>Rythme, transitions, étalonnage, LUTs : monter des vidéos qui retiennent l'attention.</p></div>
       <div class="theme"><span class="num">03</span><h3>Cadrage</h3><p>Composition, lumière, mouvements de caméra, même avec ton iPhone.</p></div>
     </div>
-    <div style="text-align:center;margin-top:40px"><a href="#acheter" class="btn rouge">J'accède aux modules</a></div>
+    <div style="text-align:center;margin-top:40px"><a href="#formations" class="btn rouge">Voir les formules</a></div>
   </div>
 
   <div class="wrap">
@@ -258,6 +281,7 @@ footer .logo{display:block;margin-bottom:8px}
     <h2 class="titre sec-t">Questions fréquentes</h2>
     <div class="faq">
       <details><summary>C'est pour qui ?</summary><p>Pour tous les niveaux, de novice à avancé. Les modules partent des bases et vont jusqu'aux techniques avancées.</p></details>
+      <details><summary>Comment se passe le présentiel ?</summary><p>Tu choisis la formule présentiel et tu la paies sur le site. Hope te recontacte ensuite pour fixer la date de la séance avec toi.</p></details>
       <details><summary>Comment je reçois les modules ?</summary><p>Juste après le paiement, tu reçois ton accès par email. Tu regardes les vidéos quand tu veux, sur téléphone ou ordinateur.</p></details>
       <details><summary>Combien de temps j'ai accès au pack vidéo ?</summary><p>Durée d'accès à définir avec Hope.</p></details>
     </div>
@@ -289,18 +313,26 @@ footer .logo{display:block;margin-bottom:8px}
         <ul class="modules"><li>📱 Les bons réglages</li><li>🎞 Mouvements de caméra</li><li>🔊 Le son</li><li>🚀 Publier sur TikTok</li></ul>
         <p>Des images pro avec le téléphone que tu as déjà dans la poche.</p></div>
     </div>
-    <h2 class="titre sec-t" style="margin-top:70px">Le pack complet</h2>
-    <p class="sous">Tous les modules vidéo en un seul achat. Paiement unique, accès immédiat.</p>
-    <div class="prix" style="max-width:420px">
+    <h2 class="titre sec-t" style="margin-top:70px">Choisis ta formule</h2>
+    <p class="sous">En ligne à ton rythme, ou en présentiel avec Hope. Paiement directement sur le site.</p>
+    <div class="prix" style="max-width:880px">
       <div class="carte vedette">
-        <span class="bandeau tag">Bientôt disponible</span>
+        <span class="bandeau tag">En ligne</span>
         <h3>Pack modules vidéo</h3>
         <div class="montant">500 €</div>
         <ul><li>Tous les modules : IA, montage, cadrage, iPhone</li><li>100 % en ligne, à ton rythme</li><li>Sur téléphone et ordinateur</li></ul>
-        <a href="#acheter" class="btn rouge">Bientôt disponible</a>
+        <a href="#acheter" class="btn rouge" data-format="ligne">Bientôt disponible</a>
+      </div>
+      <div class="carte">
+        <span class="bandeau tag">Présentiel</span>
+        <h3>Formation en présentiel</h3>
+        <div class="montant">800 €</div>
+        <ul><li>En face à face avec Hope</li><li>Au choix : IA, montage ou cadrage</li><li>Tournage en conditions réelles</li></ul>
+        <a href="#acheter" class="btn" data-format="presentiel">Bientôt disponible</a>
       </div>
     </div>
-    <p class="acompte-note">Le pack sera bientôt disponible : paiement unique et accès immédiat aux modules.</p>
+    <div class="preuve" data-preuve style="margin-left:0"><i></i><span></span></div>
+    <p class="acompte-note">Le paiement en ligne arrive très bientôt.</p>
   </div>
 </section>
 
@@ -330,12 +362,16 @@ footer .logo{display:block;margin-bottom:8px}
   <div class="wrap" style="max-width:640px">
     <div id="formulaire">
     <h2 class="titre sec-t">Bientôt disponible</h2>
-    <p class="sous">Le pack modules vidéo arrive très vite. Suis Hope sur TikTok et Instagram pour être prévenu de la sortie.</p>
+    <p class="sous">Le paiement en ligne arrive très vite. Suis Hope sur TikTok et Instagram pour être prévenu de l'ouverture.</p>
     <form class="form" id="achat" novalidate>
+      <div class="formats">
+        <label><input type="radio" name="format" value="ligne" checked>En ligne<small>Pack modules vidéo · 500 €</small></label>
+        <label><input type="radio" name="format" value="presentiel">En présentiel<small>Avec Hope · 800 €</small></label>
+      </div>
       <div class="recap">
-        <div class="ligne"><span>Pack modules vidéo</span><span>500 €</span></div>
-        <div class="ligne"><span>IA · Montage · Cadrage · iPhone</span><span>Bientôt</span></div>
-        <div class="ligne total"><span>Total</span><span>500 €</span></div>
+        <div class="ligne"><span id="rNom">Pack modules vidéo</span><span id="rPrix">500 €</span></div>
+        <div class="ligne"><span id="rDetail">IA · Montage · Cadrage · iPhone</span><span>Bientôt</span></div>
+        <div class="ligne total"><span>Total</span><span id="rTotal">500 €</span></div>
       </div>
       <button type="button" class="btn" style="width:100%;opacity:.55;cursor:not-allowed" disabled>Bientôt disponible</button>
       <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
@@ -423,6 +459,17 @@ document.getElementById("contactForm").addEventListener("submit",e=>{e.preventDe
 addEventListener("hashchange",route);route();
 
 const $=s=>document.querySelector(s);
+/* ===== À REMPLIR PAR HOPE ===== */
+const VIDEO_BIENVENUE="";   // lien de la vidéo de bienvenue (ex : "videos/bienvenue.mp4")
+const ELEVES_INSCRITS=0;    // nombre RÉEL d'élèves inscrits (s'affiche dès qu'il est > 0)
+/* ============================== */
+if(VIDEO_BIENVENUE){const l=$("#lecteurBienvenue");l.innerHTML=`<video src="${VIDEO_BIENVENUE}" controls playsinline preload="metadata"></video>`;}
+if(ELEVES_INSCRITS>0)document.querySelectorAll("[data-preuve]").forEach(e=>{e.querySelector("span").textContent=`${ELEVES_INSCRITS.toLocaleString("fr-FR")} élève${ELEVES_INSCRITS>1?"s ont":" a"} déjà rejoint HopeLab`;e.classList.add("on");});
+const FORMATS={ligne:["Pack modules vidéo","IA · Montage · Cadrage · iPhone","500 €"],presentiel:["Formation en présentiel","Avec Hope · date fixée ensemble","800 €"]};
+function majFormat(){const f=(document.querySelector("input[name=format]:checked")||{}).value||"ligne";const[n,d,p]=FORMATS[f];
+ $("#rNom").textContent=n;$("#rDetail").textContent=d;$("#rPrix").textContent=p;$("#rTotal").textContent=p;}
+document.querySelectorAll("input[name=format]").forEach(i=>i.addEventListener("change",majFormat));
+document.querySelectorAll("[data-format]").forEach(b=>b.addEventListener("click",()=>{const r=document.querySelector(`input[name=format][value=${b.dataset.format}]`);if(r){r.checked=true;majFormat();}}));
 </script>
 </body>
 </html>
